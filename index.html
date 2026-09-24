@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economic Research & Intelligence Hub</title>
+  <style>
+    :root {
+      --primary: #003366; /* 한국은행/중앙은행 계열 신뢰도 높은 네이비 */
+      --primary-dark: #002244;
+      --accent-red: #c93b2b; /* 상방/상승 압력 */
+      --accent-blue: #1d6fa5; /* 하방/완화 압력 */
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #222222;
+      --text-muted: #666666;
+      --border: #e2e5e8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* Top Utility Bar */
+    .top-bar { background: #f1f3f5; border-bottom: 1px solid var(--border); padding: 6px 40px; font-size: 12px; display: flex; justify-content: space-between; color: var(--text-muted); }
+    .top-bar span strong { color: var(--primary); }
+
+    /* Navigation / Mega Menu (BOK Style) */
+    header { background: #fff; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 68px; }
+    .brand { font-size: 20px; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
+
+    .nav-menu { display: flex; list-style: none; height: 100%; }
+    .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
+    .nav-item > a { text-decoration: none; color: #333; font-weight: 600; font-size: 15px; padding: 0 20px; height: 100%; display: flex; align-items: center; transition: color 0.2s; }
+    .nav-item:hover > a { color: var(--primary); }
+
+    /* Mega Dropdown */
+    .dropdown {
+      position: absolute;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 650px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--primary);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      display: none;
+      padding: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .nav-item:hover .dropdown { display: grid; }
+    .dropdown-col h4 { font-size: 14px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px; }
+    .dropdown-col ul { list-style: none; }
+    .dropdown-col ul li { margin-bottom: 8px; }
+    .dropdown-col ul li a { text-decoration: none; color: #555; font-size: 13px; transition: color 0.2s; }
+    .dropdown-col ul li a:hover { color: var(--primary); font-weight: 600; }
+
+    /* Main Container */
+    main { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+    /* Market Dashboard Strip */
+    .dashboard-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 30px; }
+    .dash-card { background: var(--card-bg); padding: 18px 20px; border: 1px solid var(--border); border-radius: 4px; }
+    .dash-card .title { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .dash-card .val { font-size: 22px; font-weight: 700; color: var(--primary); margin: 6px 0; }
+    .dash-card .status { font-size: 12px; font-weight: 600; }
+    .status.up { color: var(--accent-red); }
+    .status.down { color: var(--accent-blue); }
+
+    /* Section Headers */
+    .section-head { border-left: 4px solid var(--primary); padding-left: 12px; margin: 40px 0 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .section-head h2 { font-size: 19px; font-weight: 700; }
+    .section-head span { font-size: 12px; color: var(--text-muted); }
+
+    /* Indicator Matrix Table */
+    .table-container { background: #fff; border: 1px solid var(--border); border-radius: 4px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+    th { background: #f8fafc; font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border); color: #444; }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+    .badge-up { background: #fde8e8; color: var(--accent-red); }
+    .badge-down { background: #e8f3fa; color: var(--accent-blue); }
+    .badge-neutral { background: #eef1f4; color: #555; }
+
+    /* Report Grid */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .report-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: box-shadow 0.2s; }
+    .report-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .report-tag { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; }
+    .report-title { font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: #111; }
+    .report-desc { font-size: 13px; color: #666; margin-bottom: 16px; line-height: 1.5; }
+    .report-meta { font-size: 11px; color: #999; border-top: 1px solid #f1f3f5; padding-top: 10px; }
+
+    footer { background: #fff; border-top: 1px solid var(--border); margin-top: 60px; padding: 30px 20px; text-align: center; font-size: 12px; color: #888; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div><strong>MACRO INTELLIGENCE DESK</strong> | 거시경제 분석 및 시장 리서치 아카이브</div>
+    <div>기준일자: 2026. 09.</div>
+  </div>
+
+  <!-- Header & Mega Menu -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">MACRO RESEARCH</a>
+      <ul class="nav-menu">
+        
+        <!-- 1. 경제보고서 -->
+        <li class="nav-item">
+          <a href="#">경제보고서</a>
+          <div class="dropdown">
+            <div class="dropdown-col">
+              <h4>정기 분석</h4>
+              <ul>
+                <li><a href="#">거시경제 전망 (Macro Outlook)</a></li>
+                <li><a href="#">통화신용정책 점검</a></li>
+                <li><a href="#">금융안정 리포트</a></li>
+              </ul>
+            </div>
+            <div class="dropdown-col">
+              <h4>현안 및 테마</h4>
+              <ul>
+                <li><a href="#">글로벌 공급망 & 통상 리포트</a></li>
+                <li><a href="#">부동산 및 가계부채 구조분석</a></li>
+                <li><a href="#">산업별 익스포저 점검</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- 2. 경제지표 & 상하방압력 -->
+        <li class="nav-item">
+          <a href="#">경제지표</a>
+          <div class="dropdown">
+            <div class="dropdown-col">
+              <h4>거시 가격 변수</h4>
+              <ul>
+                <li><a href="#">기준금리 및 국채 스프레드</a></li>
+                <li><a href="#">원/달러 환율 및 외환보유액</a></li>
+                <li><a href="#">글로벌 원자재 및 유가 동향</a></li>
+              </ul>
+            </div>
+            <div class="dropdown-col">
+              <h4>실물 및 경기 압력</h4>
+              <ul>
+                <li><a href="#">물가상승률 상·하방 요인</a></li>
+                <li><a href="#">고용 및 실질임금 경로</a></li>
+                <li><a href="#">수출입 동향 및 경기선행지수</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- 3. 뉴스 스크랩 -->
+        <li class="nav-item">
+          <a href="#">경제뉴스</a>
+          <div class="dropdown">
+            <div class="dropdown-col">
+              <h4>대외 여건</h4>
+              <ul>
+                <li><a href="#">미 Fed / ECB 통화정책 외신</a></li>
+                <li><a href="#">주요국 재정정책 및 무역 분쟁</a></li>
+              </ul>
+            </div>
+            <div class="dropdown-col">
+              <h4>대내 여건</h4>
+              <ul>
+                <li><a href="#">한국은행 금융통화위원회 동향</a></li>
+                <li><a href="#">국내 금융시장 자금 흐름 브리프</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- 4. 통계 & 연구 -->
+        <li class="nav-item">
+          <a href="#">통계/연구</a>
+          <div class="dropdown">
+            <div class="dropdown-col">
+              <h4>통계 아카이브</h4>
+              <ul>
+                <li><a href="#">ECOS 핵심 시계열 DB</a></li>
+                <li><a href="#">FRED 주요 거시지표 매핑</a></li>
+              </ul>
+            </div>
+            <div class="dropdown-col">
+              <h4>계량 연구 & 모형</h4>
+              <ul>
+                <li><a href="#">VAR 모형 기반 통화정책 충격 분석</a></li>
+                <li><a href="#">개인 연구 프로젝트 아카이브</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    
+    <!-- Core Indicator Strip -->
+    <div class="dashboard-strip">
+      <div class="dash-card">
+        <div class="title">기준금리 (BOK / Fed)</div>
+        <div class="val">3.00% / 4.25%</div>
+        <div class="status down">한미 금리차 축소 흐름 점검</div>
+      </div>
+      <div class="dash-card">
+        <div class="title">원/달러 환율</div>
+        <div class="val">1,342.50</div>
+        <div class="status up">수출입 결제 및 외환 수급 주시</div>
+      </div>
+      <div class="dash-card">
+        <div class="title">소비자물가(CPI) 추세</div>
+        <div class="val">2.1% YoY</div>
+        <div class="status down">목표수준 근접, 근원물가 안정</div>
+      </div>
+      <div class="dash-card">
+        <div class="title">국고채 3년 / 10년물 스프레드</div>
+        <div class="val">+18 bp</div>
+        <div class="status up">수익률 곡선 스티프닝 진행 중</div>
+      </div>
+    </div>
+
+    <!-- Section: Indicator Upside/Downside Matrix -->
+    <div class="section-head">
+      <h2>경제지표 상·하방 압력 점검 매트릭스</h2>
+      <span>최근 업데이트: 주기적 갱신</span>
+    </div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">분야/지표</th>
+            <th style="width: 12%;">판단</th>
+            <th style="width: 35%;">상방 압력 요인 (Upside Risks)</th>
+            <th style="width: 38%;">하방 요인 및 시장 시사점 (Downside & Implications)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>국내 물가 (CPI)</strong></td>
+            <td><span class="badge badge-down">하방 압력</span></td>
+            <td>지정학적 리스크에 따른 국제유가 변동성, 공공요금 인상 압력 잔존</td>
+            <td>내수 소비 둔화로 인한 수요 견인 인플레이션 제한. 물가 목표치(2.0%) 안착 가시화.</td>
+          </tr>
+          <tr>
+            <td><strong>원/달러 환율</strong></td>
+            <td><span class="badge badge-neutral">중립 / 횡보</span></td>
+            <td>글로벌 달러화 강세 재개 시 자금 유출 압력, 엔/위안화 동조화</td>
+            <td>경상수지 흑자 기조 지속 및 미 연준의 통화 긴축 완화 전환이 상단을 제약.</td>
+          </tr>
+          <tr>
+            <td><strong>수출 및 실물경기</strong></td>
+            <td><span class="badge badge-up">상방 압력</span></td>
+            <td>반도체 및 IT 중심 글로벌 수요 호조 지속, 대미 설비투자 수혜</td>
+            <td>주요 교역국 경기 회복 지연 및 비IT 부문 제조업 회복세 차별화 리스크.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section: Featured Reports -->
+    <div class="section-head">
+      <h2>최신 심층 경제보고서 (Featured Research)</h2>
+      <span>발행 리포트 모음</span>
+    </div>
+
+    <div class="grid">
+      <div class="report-card">
+        <div>
+          <div class="report-tag">Macro / Monetary</div>
+          <div class="report-title">글로벌 통화정책 전환기: 금리 인하 사이클과 장단기 금리차 분해</div>
+          <div class="report-desc">중립금리 추정치 변화와 국채 발행 물량 부담이 채권시장의 장단기 스프레드에 미치는 구조적 영향을 분석함.</div>
+        </div>
+        <div class="report-meta">작성일: 2026. 08. 15 | PDF 리포트 포함</div>
+      </div>
+
+      <div class="report-card">
+        <div>
+          <div class="report-tag">FX / Liquidity</div>
+          <div class="report-title">경상수지 구조 변화와 달러화 수급의 뉴노멀</div>
+          <div class="report-desc">해외 배당소득 유입 증가와 서학개미의 해외주식 투자 흐름이 원/달러 환율 결정 구조에 미치는 새로운 상관관계 점검.</div>
+        </div>
+        <div class="report-meta">작성일: 2026. 07. 22 | 데이터 분석 완료</div>
+      </div>
+
+      <div class="report-card">
+        <div>
+          <div class="report-tag">Industry / Trade</div>
+          <div class="report-title">주요국 산업정책과 한국 제조업 수출 탄력성 분석</div>
+          <div class="report-desc">보호무역주의 기조 하에서 반도체, 2차전지, 자동차 밸류체인의 재편과 국내 GDP 기여도 시뮬레이션.</div>
+        </div>
+        <div class="report-meta">작성일: 2026. 06. 30 | 모형 추정 결과</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Macro Research & Intelligence Hub. All Rights Reserved.</p>
+    <p style="margin-top: 6px; color: #aaa;">본 사이트는 거시경제 연구 및 시장 지표 트래킹을 위한 개인 리서치 허브입니다.</p>
+  </footer>
+
+</body>
+</html>
