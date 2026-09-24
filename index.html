@@ -6,10 +6,10 @@
   <title>Economic Research & Intelligence Hub</title>
   <style>
     :root {
-      --primary: #003366; /* 한국은행/중앙은행 계열 신뢰도 높은 네이비 */
+      --primary: #003366;
       --primary-dark: #002244;
-      --accent-red: #c93b2b; /* 상방/상승 압력 */
-      --accent-blue: #1d6fa5; /* 하방/완화 압력 */
+      --accent-red: #c93b2b;
+      --accent-blue: #1d6fa5;
       --bg: #f8f9fa;
       --card-bg: #ffffff;
       --text: #222222;
@@ -24,43 +24,42 @@
     .top-bar { background: #f1f3f5; border-bottom: 1px solid var(--border); padding: 6px 40px; font-size: 12px; display: flex; justify-content: space-between; color: var(--text-muted); }
     .top-bar span strong { color: var(--primary); }
 
-    /* Navigation / Mega Menu (BOK Style) */
-    header { background: #fff; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+    /* Navigation & Dropdown */
+    header { background: #fff; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 68px; }
     .brand { font-size: 20px; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
 
     .nav-menu { display: flex; list-style: none; height: 100%; }
     .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
-    .nav-item > a { text-decoration: none; color: #333; font-weight: 600; font-size: 15px; padding: 0 20px; height: 100%; display: flex; align-items: center; transition: color 0.2s; }
+    .nav-item > a { text-decoration: none; color: #333; font-weight: 600; font-size: 15px; padding: 0 20px; height: 100%; display: flex; align-items: center; }
     .nav-item:hover > a { color: var(--primary); }
 
-    /* Mega Dropdown */
     .dropdown {
       position: absolute;
       top: 68px;
       left: 50%;
       transform: translateX(-50%);
-      width: 650px;
+      width: 620px;
       background: #fff;
       border: 1px solid var(--border);
       border-top: 2px solid var(--primary);
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
       display: none;
-      padding: 24px;
+      padding: 22px;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
     .nav-item:hover .dropdown { display: grid; }
-    .dropdown-col h4 { font-size: 14px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px; }
+    .dropdown-col h4 { font-size: 13px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 8px; }
     .dropdown-col ul { list-style: none; }
-    .dropdown-col ul li { margin-bottom: 8px; }
-    .dropdown-col ul li a { text-decoration: none; color: #555; font-size: 13px; transition: color 0.2s; }
+    .dropdown-col ul li { margin-bottom: 6px; }
+    .dropdown-col ul li a { text-decoration: none; color: #555; font-size: 13px; }
     .dropdown-col ul li a:hover { color: var(--primary); font-weight: 600; }
 
     /* Main Container */
     main { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-    /* Market Dashboard Strip */
+    /* Dashboard Strip */
     .dashboard-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 30px; }
     .dash-card { background: var(--card-bg); padding: 18px 20px; border: 1px solid var(--border); border-radius: 4px; }
     .dash-card .title { font-size: 12px; color: var(--text-muted); font-weight: 600; }
@@ -74,7 +73,7 @@
     .section-head h2 { font-size: 19px; font-weight: 700; }
     .section-head span { font-size: 12px; color: var(--text-muted); }
 
-    /* Indicator Matrix Table */
+    /* Indicator Matrix */
     .table-container { background: #fff; border: 1px solid var(--border); border-radius: 4px; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
     th { background: #f8fafc; font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border); color: #444; }
@@ -85,14 +84,105 @@
     .badge-down { background: #e8f3fa; color: var(--accent-blue); }
     .badge-neutral { background: #eef1f4; color: #555; }
 
-    /* Report Grid */
+    /* Report Grid & Clickable Cards */
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .report-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: box-shadow 0.2s; }
-    .report-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .report-card { 
+      background: #fff; 
+      border: 1px solid var(--border); 
+      border-radius: 4px; 
+      padding: 22px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+      cursor: pointer; 
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .report-card:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08); 
+      border-color: var(--primary); 
+    }
     .report-tag { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; }
-    .report-title { font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: #111; }
+    .report-title { font-size: 15px; font-weight: 700; line-height: 1.45; margin-bottom: 10px; color: #111; }
     .report-desc { font-size: 13px; color: #666; margin-bottom: 16px; line-height: 1.5; }
-    .report-meta { font-size: 11px; color: #999; border-top: 1px solid #f1f3f5; padding-top: 10px; }
+    .report-meta { font-size: 11px; color: #999; border-top: 1px solid #f1f3f5; padding-top: 10px; display: flex; justify-content: space-between; }
+    .read-more { color: var(--primary); font-weight: 600; }
+
+    /* Modal (Popup) Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-window {
+      background: #fff;
+      width: 100%;
+      max-width: 820px;
+      max-height: 85vh;
+      border-radius: 6px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-header {
+      padding: 20px 26px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: #fbfcfd;
+    }
+    .modal-header-text h3 { font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+    .modal-header-text p { font-size: 12px; color: var(--text-muted); }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: #777;
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .close-btn:hover { color: #000; }
+    
+    .modal-body {
+      padding: 26px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.75;
+      color: #333;
+    }
+    .modal-section { margin-bottom: 24px; }
+    .modal-section h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      border-left: 3px solid var(--primary);
+      padding-left: 8px;
+      margin-bottom: 8px;
+    }
+    .callout-box {
+      background: #f1f5f9;
+      border: 1px solid #dbe2e8;
+      border-radius: 4px;
+      padding: 14px 16px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .callout-box strong { color: var(--primary); }
 
     footer { background: #fff; border-top: 1px solid var(--border); margin-top: 60px; padding: 30px 20px; text-align: center; font-size: 12px; color: #888; }
   </style>
@@ -101,139 +191,89 @@
 
   <!-- Top Bar -->
   <div class="top-bar">
-    <div><strong>MACRO INTELLIGENCE DESK</strong> | 거시경제 분석 및 시장 리서치 아카이브</div>
+    <div><strong>MACRO INTELLIGENCE DESK</strong> | 거시경제 분석 및 구조개혁 연구 아카이브</div>
     <div>기준일자: 2026. 09.</div>
   </div>
 
-  <!-- Header & Mega Menu -->
+  <!-- Header & Dropdown -->
   <header>
     <div class="nav-container">
       <a href="#" class="brand">MACRO RESEARCH</a>
       <ul class="nav-menu">
-        
-        <!-- 1. 경제보고서 -->
         <li class="nav-item">
-          <a href="#">경제보고서</a>
+          <a href="#reports">경제보고서</a>
           <div class="dropdown">
             <div class="dropdown-col">
               <h4>정기 분석</h4>
               <ul>
-                <li><a href="#">거시경제 전망 (Macro Outlook)</a></li>
-                <li><a href="#">통화신용정책 점검</a></li>
-                <li><a href="#">금융안정 리포트</a></li>
+                <li><a href="#reports">구조개혁 & 노동시장 리포트</a></li>
+                <li><a href="#reports">통화신용정책 점검</a></li>
               </ul>
             </div>
             <div class="dropdown-col">
               <h4>현안 및 테마</h4>
               <ul>
-                <li><a href="#">글로벌 공급망 & 통상 리포트</a></li>
-                <li><a href="#">부동산 및 가계부채 구조분석</a></li>
-                <li><a href="#">산업별 익스포저 점검</a></li>
+                <li><a href="#reports">AI 노동전환 영향 분석</a></li>
+                <li><a href="#reports">인구구조 변화와 잠재성장률</a></li>
               </ul>
             </div>
           </div>
         </li>
-
-        <!-- 2. 경제지표 & 상하방압력 -->
         <li class="nav-item">
-          <a href="#">경제지표</a>
+          <a href="#matrix">경제지표</a>
           <div class="dropdown">
+            <div class="dropdown-col">
+              <h4>고용 및 실물지표</h4>
+              <ul>
+                <li><a href="#matrix">체감실업률 및 구직단념 추이</a></li>
+                <li><a href="#matrix">여성·고령층 경제활동참가율</a></li>
+              </ul>
+            </div>
             <div class="dropdown-col">
               <h4>거시 가격 변수</h4>
               <ul>
-                <li><a href="#">기준금리 및 국채 스프레드</a></li>
-                <li><a href="#">원/달러 환율 및 외환보유액</a></li>
-                <li><a href="#">글로벌 원자재 및 유가 동향</a></li>
-              </ul>
-            </div>
-            <div class="dropdown-col">
-              <h4>실물 및 경기 압력</h4>
-              <ul>
-                <li><a href="#">물가상승률 상·하방 요인</a></li>
-                <li><a href="#">고용 및 실질임금 경로</a></li>
-                <li><a href="#">수출입 동향 및 경기선행지수</a></li>
+                <li><a href="#matrix">기준금리 및 필립스곡선 관계</a></li>
+                <li><a href="#matrix">원/달러 환율 스프레드</a></li>
               </ul>
             </div>
           </div>
         </li>
-
-        <!-- 3. 뉴스 스크랩 -->
-        <li class="nav-item">
-          <a href="#">경제뉴스</a>
-          <div class="dropdown">
-            <div class="dropdown-col">
-              <h4>대외 여건</h4>
-              <ul>
-                <li><a href="#">미 Fed / ECB 통화정책 외신</a></li>
-                <li><a href="#">주요국 재정정책 및 무역 분쟁</a></li>
-              </ul>
-            </div>
-            <div class="dropdown-col">
-              <h4>대내 여건</h4>
-              <ul>
-                <li><a href="#">한국은행 금융통화위원회 동향</a></li>
-                <li><a href="#">국내 금융시장 자금 흐름 브리프</a></li>
-              </ul>
-            </div>
-          </div>
-        </li>
-
-        <!-- 4. 통계 & 연구 -->
-        <li class="nav-item">
-          <a href="#">통계/연구</a>
-          <div class="dropdown">
-            <div class="dropdown-col">
-              <h4>통계 아카이브</h4>
-              <ul>
-                <li><a href="#">ECOS 핵심 시계열 DB</a></li>
-                <li><a href="#">FRED 주요 거시지표 매핑</a></li>
-              </ul>
-            </div>
-            <div class="dropdown-col">
-              <h4>계량 연구 & 모형</h4>
-              <ul>
-                <li><a href="#">VAR 모형 기반 통화정책 충격 분석</a></li>
-                <li><a href="#">개인 연구 프로젝트 아카이브</a></li>
-              </ul>
-            </div>
-          </div>
-        </li>
-
+        <li class="nav-item"><a href="#">경제뉴스</a></li>
+        <li class="nav-item"><a href="#">통계/연구</a></li>
       </ul>
     </div>
   </header>
 
-  <!-- Main Content -->
   <main>
     
-    <!-- Core Indicator Strip -->
+    <!-- Top Strip -->
     <div class="dashboard-strip">
       <div class="dash-card">
-        <div class="title">기준금리 (BOK / Fed)</div>
-        <div class="val">3.00% / 4.25%</div>
-        <div class="status down">한미 금리차 축소 흐름 점검</div>
+        <div class="title">기준실업률 vs 청년 체감실업률</div>
+        <div class="val">2.7% / 18.4%</div>
+        <div class="status down">통계적 착시 및 구직단념 확대</div>
       </div>
       <div class="dash-card">
-        <div class="title">원/달러 환율</div>
-        <div class="val">1,342.50</div>
-        <div class="status up">수출입 결제 및 외환 수급 주시</div>
+        <div class="title">여성·고령층 경제활동참가율</div>
+        <div class="val">61.8%</div>
+        <div class="status up">노동 공급 순증 기여 지속</div>
       </div>
       <div class="dash-card">
-        <div class="title">소비자물가(CPI) 추세</div>
-        <div class="val">2.1% YoY</div>
-        <div class="status down">목표수준 근접, 근원물가 안정</div>
+        <div class="title">신입 공채 비중 (주요 대기업)</div>
+        <div class="val">34.2%</div>
+        <div class="status down">경력직 수시채용 중심 전환</div>
       </div>
       <div class="dash-card">
-        <div class="title">국고채 3년 / 10년물 스프레드</div>
-        <div class="val">+18 bp</div>
-        <div class="status up">수익률 곡선 스티프닝 진행 중</div>
+        <div class="title">총 취업자수 감소 전환 시점</div>
+        <div class="val">2030년 전망</div>
+        <div class="status down">인구 오너스(Demographic Onus) 본격화</div>
       </div>
     </div>
 
-    <!-- Section: Indicator Upside/Downside Matrix -->
-    <div class="section-head">
+    <!-- Section: Indicator Matrix -->
+    <div id="matrix" class="section-head">
       <h2>경제지표 상·하방 압력 점검 매트릭스</h2>
-      <span>최근 업데이트: 주기적 갱신</span>
+      <span>고용 및 거시 충격 요인 점검</span>
     </div>
     
     <div class="table-container">
@@ -243,73 +283,195 @@
             <th style="width: 15%;">분야/지표</th>
             <th style="width: 12%;">판단</th>
             <th style="width: 35%;">상방 압력 요인 (Upside Risks)</th>
-            <th style="width: 38%;">하방 요인 및 시장 시사점 (Downside & Implications)</th>
+            <th style="width: 38%;">하방 요인 및 정책 시사점 (Downside & Implications)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>국내 물가 (CPI)</strong></td>
-            <td><span class="badge badge-down">하방 압력</span></td>
-            <td>지정학적 리스크에 따른 국제유가 변동성, 공공요금 인상 압력 잔존</td>
-            <td>내수 소비 둔화로 인한 수요 견인 인플레이션 제한. 물가 목표치(2.0%) 안착 가시화.</td>
+            <td><strong>공식 실업률 지표</strong></td>
+            <td><span class="badge badge-down">하방 압력 (착시)</span></td>
+            <td>근무여건 개선에 따른 여성 공급 증가, 공적연금 보완을 위한 고령층 참가 확대</td>
+            <td>청년층의 구직단념(비경활 분류) 증가로 분모·분자 동시 축소. 공식 지표와 체감 경기 괴리 심화.</td>
           </tr>
           <tr>
-            <td><strong>원/달러 환율</strong></td>
-            <td><span class="badge badge-neutral">중립 / 횡보</span></td>
-            <td>글로벌 달러화 강세 재개 시 자금 유출 압력, 엔/위안화 동조화</td>
-            <td>경상수지 흑자 기조 지속 및 미 연준의 통화 긴축 완화 전환이 상단을 제약.</td>
+            <td><strong>노동시장 이중구조</strong></td>
+            <td><span class="badge badge-up">경직성 심화</span></td>
+            <td>정보비대칭 및 채용 실패 리스크 회피를 위한 대기업의 경력직 선호</td>
+            <td>1·2차 노동시장 간 진입장벽 격차 확대로 청년층 일자리 미스매치 및 취업 단념 장기화.</td>
           </tr>
           <tr>
-            <td><strong>수출 및 실물경기</strong></td>
-            <td><span class="badge badge-up">상방 압력</span></td>
-            <td>반도체 및 IT 중심 글로벌 수요 호조 지속, 대미 설비투자 수혜</td>
-            <td>주요 교역국 경기 회복 지연 및 비IT 부문 제조업 회복세 차별화 리스크.</td>
+            <td><strong>AI 산업 전환 적응력</strong></td>
+            <td><span class="badge badge-down">전환 저해 위험</span></td>
+            <td>디지털 생산성 개선 및 신산업 고부가가치 직군 생성 기대</td>
+            <td>노동 이동성 제약으로 인력 재배치 실패, 특정 직군 고통 집중 및 사회 양극화 증폭.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Section: Featured Reports -->
-    <div class="section-head">
+    <div id="reports" class="section-head">
       <h2>최신 심층 경제보고서 (Featured Research)</h2>
-      <span>발행 리포트 모음</span>
+      <span>* 카드를 클릭하면 분석 상세 내용이 열립니다.</span>
     </div>
 
     <div class="grid">
-      <div class="report-card">
+      
+      <!-- User's Report (Card 1) -->
+      <div class="report-card" onclick="openModal('report1')">
         <div>
-          <div class="report-tag">Macro / Monetary</div>
-          <div class="report-title">글로벌 통화정책 전환기: 금리 인하 사이클과 장단기 금리차 분해</div>
-          <div class="report-desc">중립금리 추정치 변화와 국채 발행 물량 부담이 채권시장의 장단기 스프레드에 미치는 구조적 영향을 분석함.</div>
+          <div class="report-tag">Structural / Labor</div>
+          <div class="report-title">노동시장 이중구조와 고용 통계의 착시: AI·인구구조 전환기의 대응 과제</div>
+          <div class="report-desc">여성·고령층의 공급 확대와 청년층의 구직단념이 빚어낸 실업률 왜곡을 분석하고, AI 전환 및 인구 감소기 중앙은행의 의제 설정 역할을 고찰함.</div>
         </div>
-        <div class="report-meta">작성일: 2026. 08. 15 | PDF 리포트 포함</div>
+        <div class="report-meta">
+          <span>작성일: 2026. 09. | 심층 보고서</span>
+          <span class="read-more">전문 읽기 &rarr;</span>
+        </div>
       </div>
 
-      <div class="report-card">
+      <!-- Card 2 -->
+      <div class="report-card" onclick="openModal('report2')">
         <div>
-          <div class="report-tag">FX / Liquidity</div>
-          <div class="report-title">경상수지 구조 변화와 달러화 수급의 뉴노멀</div>
-          <div class="report-desc">해외 배당소득 유입 증가와 서학개미의 해외주식 투자 흐름이 원/달러 환율 결정 구조에 미치는 새로운 상관관계 점검.</div>
+          <div class="report-tag">Monetary / Inflation</div>
+          <div class="report-title">필립스곡선의 평탄화와 중앙은행의 고용 대시보드 접근법</div>
+          <div class="report-desc">노동시장 구조 변화로 인해 실업률과 임금-물가 간 상관관계가 약화됨에 따라 통화정책 운영 시 다변화된 고용보조지표 도입 필요성 검토.</div>
         </div>
-        <div class="report-meta">작성일: 2026. 07. 22 | 데이터 분석 완료</div>
+        <div class="report-meta">
+          <span>작성일: 2026. 08. | 정기 연구</span>
+          <span class="read-more">전문 읽기 &rarr;</span>
+        </div>
       </div>
 
-      <div class="report-card">
+      <!-- Card 3 -->
+      <div class="report-card" onclick="openModal('report3')">
         <div>
-          <div class="report-tag">Industry / Trade</div>
-          <div class="report-title">주요국 산업정책과 한국 제조업 수출 탄력성 분석</div>
-          <div class="report-desc">보호무역주의 기조 하에서 반도체, 2차전지, 자동차 밸류체인의 재편과 국내 GDP 기여도 시뮬레이션.</div>
+          <div class="report-tag">Demographics / Macro</div>
+          <div class="report-title">2030년 취업자 수 감소 전환에 따른 잠재성장률 하방 시나리오</div>
+          <div class="report-desc">노동 공급의 양적 축소와 인적자본 축적 지연에 따른 낙인효과가 총요소생산성(TFP)에 미치는 장기적 경로 모형 추정.</div>
         </div>
-        <div class="report-meta">작성일: 2026. 06. 30 | 모형 추정 결과</div>
+        <div class="report-meta">
+          <span>작성일: 2026. 07. | 모형 추정</span>
+          <span class="read-more">전문 읽기 &rarr;</span>
+        </div>
       </div>
+
     </div>
 
   </main>
 
+  <!-- Modal Overlay -->
+  <div id="modalOverlay" class="modal-overlay" onclick="closeModalOnOutside(event)">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <h3 id="modalTitle">보고서 상세</h3>
+          <p id="modalMeta">발행처: Macro Intelligence Desk</p>
+        </div>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Content injected dynamically via JavaScript -->
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 Macro Research & Intelligence Hub. All Rights Reserved.</p>
-    <p style="margin-top: 6px; color: #aaa;">본 사이트는 거시경제 연구 및 시장 지표 트래킹을 위한 개인 리서치 허브입니다.</p>
+    <p style="margin-top: 6px; color: #aaa;">본 사이트는 거시경제 구조개혁 및 시장 지표 트래킹을 위한 개인 리서치 허브입니다.</p>
   </footer>
+
+  <script>
+    // Database for Reports
+    const reportData = {
+      report1: {
+        title: "노동시장 이중구조와 고용 통계의 착시: AI·인구구조 전환기의 대응 과제",
+        meta: "분류: 거시경제 구조분석 | 기준일: 2026. 09. | 작성: Macro Research Desk",
+        content: `
+          <div class="callout-box">
+            <strong>Executive Summary:</strong><br>
+            최근 실업률 하락은 여성·고령층의 노동공급 확대와 청년층의 구직단념이 겹친 <strong>'통계적 착시'</strong>에 기인한다. 정규직 고용 경직성과 경력직 중심 수시채용으로 고착된 노동시장 이중구조는 다가올 <strong>AI 기술 전환</strong>과 <strong>2030년 취업자 감소</strong> 충격을 증폭시키는 핵심 병목이다. 한국은행은 구조개혁 의제 설정자이자, 약화된 필립스곡선을 보완할 '고용 대시보드' 기반 통화정책을 운용해야 한다.
+          </div>
+
+          <div class="modal-section">
+            <h4>1. 공식 실업률 하락과 체감 경기의 괴리 (공급측 착시)</h4>
+            <p>최근 나타나는 실업률의 하락 추세는 여성과 고령층의 노동 공급 확대, 그리고 청년층의 구직단념에서 비롯된다. 여성의 경우 팬데믹 이후 유연근무제 확산 등 근무 여건 개선에 힘입어 경제활동 참가가 크게 늘었으며, 고령층은 건강 수준 향상과 부족한 공적 연금을 보완하기 위한 경제적 필요로 인해 노동시장에 적극 유입되었다. 이는 취업자 수를 늘려 공식 실업률을 낮추는 요인으로 작용했다.</p>
+            <p style="margin-top: 8px;">반면, 청년층은 양질의 일자리를 찾지 못해 구직활동 자체를 포기하는 <strong>'실망실업자'</strong>로 전환되었다. 실망실업자는 실업률 산출식(실업자 수 / 경제활동인구)에서 비경제활동인구로 분류되어 분모와 분자를 동시에 축소시키는 통계적 착시를 유발한다. 이것이 공식 고용 지표와 체감 경기 간 극심한 괴리의 본질이다.</p>
+          </div>
+
+          <div class="modal-section">
+            <h4>2. 노동시장 이중구조와 수요측 진입 문턱</h4>
+            <p>기업들은 급변하는 산업구조와 경기 불확실성 속에서 신입 공채 대비 교육훈련 비용과 채용 실패 리스크가 적은 <strong>경력직 수시채용</strong>을 선호하고 있다. 특히 한국의 높은 고용 경직성 환경에서, 정보비대칭에 따른 역선택 위험을 줄이려는 기업의 행태는 대기업·정규직 중심의 1차 노동시장 문턱을 비정상적으로 높였다. 청년층은 1차 시장과 2차 시장 간 현격한 임금·안정성 격차 앞에서 일자리 미스매치를 겪으며 취업을 장기 지연하거나 단념하고 있다.</p>
+          </div>
+
+          <div class="modal-section">
+            <h4>3. 미래 2대 충격의 증폭 경로 (AI 전환 & 인구 오너스)</h4>
+            <ul style="padding-left: 20px; margin-top: 6px;">
+              <li style="margin-bottom: 6px;"><strong>AI 도입과 노동 전환 단절:</strong> AI 확산에 따라 대규모 인력 재배치와 재교육이 필수적이나, 1차와 2차 시장 사이의 견고한 벽은 원활한 노동 이동을 가로막고 특정 취약 직군에 고통과 양극화를 집중시킨다.</li>
+              <li><strong>인구 감소 충격의 극대화:</strong> 2030년부터 총 취업자 수 감소가 전망되는 상황에서 노동 생산성 극대화는 필수적이다. 그러나 이중구조는 여성·고령층 인력을 저숙련·저임금의 2차 시장에 방치해 잠재력을 낭비하며, 청년층의 구직 단념은 생애소득 감소와 인적자본 질적 저하(낙인 효과)를 초래한다.</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h4>4. 정책 제언 및 한국은행(중앙은행)의 역할</h4>
+            <p>과도한 정규직 고용 보호 완화, 직무·성과 중심 임금체계 개편을 통한 고용 유연성 제고와 함께 실업급여 및 재취업 훈련 등 튼튼한 사회안전망 구축이 병행되어야 한다.</p>
+            <p style="margin-top: 8px;"><strong>한국은행의 기여:</strong> 단순 경기 판단을 넘어 심층 리서치를 통해 노동시장 이중구조의 폐해를 공론화하는 <strong>'의제 설정자(Agenda Setter)'</strong> 역할을 수행해야 한다. 또한 구조적 문제로 인해 실업률과 물가 간의 전통적 필립스곡선 관계가 약화되는 현실을 반영하여, 다양한 고용보조지표를 종합 점검하는 <strong>'대시보드 접근법'</strong>을 통해 통화정책의 정교성을 강화해야 한다.</p>
+          </div>
+        `
+      },
+      report2: {
+        title: "필립스곡선의 평탄화와 중앙은행의 고용 대시보드 접근법",
+        meta: "분류: 통화정책 점검 | 기준일: 2026. 08. | 작성: Macro Research Desk",
+        content: `
+          <div class="callout-box">
+            <strong>연구 배경:</strong> 실업률 지표의 대표성 저하로 인해 물가안정과 금융안정을 목표로 하는 통화신용정책의 전통적 전달경로에 구조적 오차가 발생하고 있습니다.
+          </div>
+          <div class="modal-section">
+            <h4>다차원 고용보조지표(Dashboard) 도입 필요성</h4>
+            <p>공식 실업률(U3)뿐만 아니라 잠재구직인구를 포함한 확장실업률(U6), 청년 쉬었음 인구 비율, 이중구조 임금격차 지표 등을 포괄하는 대시보드 매트릭스를 기반으로 통화정책 기조를 점검해야 합니다.</p>
+          </div>
+        `
+      },
+      report3: {
+        title: "2030년 취업자 수 감소 전환에 따른 잠재성장률 하방 시나리오",
+        meta: "분류: 계량모형 연구 | 기준일: 2026. 07. | 작성: Macro Research Desk",
+        content: `
+          <div class="callout-box">
+            <strong>시나리오 분석:</strong> 인구구조 고령화에 따른 노동투입 감소(-0.8%p)를 상쇄하기 위한 자본장비율 제고 및 총요소생산성 혁신 경로를 시뮬레이션했습니다.
+          </div>
+          <div class="modal-section">
+            <h4>주요 결론</h4>
+            <p>노동시장 이중구조 해소 없이는 청년층의 인적자본 축적 지연(낙인효과)으로 인해 2030년대 중반 이후 잠재성장률이 1% 초반대로 급락할 위험이 상존합니다.</p>
+          </div>
+        `
+      }
+    };
+
+    function openModal(reportId) {
+      const data = reportData[reportId];
+      if (!data) return;
+      document.getElementById('modalTitle').innerText = data.title;
+      document.getElementById('modalMeta').innerText = data.meta;
+      document.getElementById('modalBody').innerHTML = data.content;
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeModalOnOutside(event) {
+      if (event.target === document.getElementById('modalOverlay')) {
+        closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 
 </body>
 </html>
